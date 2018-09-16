@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="css/main.css"/>
+
+  <title>this contenxt</title>
+</head>
+<body>
+
+
+<script>
+	// this берет name из объекта которого была вызвана
+	var profile={
+		name:'zhora',
+		age: 24,
+		greet: function(){
+			console.log("Привет меня зовут "+this.name)
+		}
+	}
+	profile.greet()
+	// Переопределяем this 
+	profile.name="Georgy"
+	profile.greet()
+
+	// Явное указание this: "call", "apply"
+
+	var greet=function(playername,age){
+		console.log("Привет игрок "+ playername+ " меня зовут "+ this.name+ " Мой возраст "+ age  )
+	}
+	var goodWizard={
+		name:"Piter Parker"
+	}
+	var badWizard={
+		name:"Воландеморт"
+	}
+
+	greet.call(goodWizard,"Zhora",24)
+	greet.apply(badWizard,["Azamat",24])
+ 
+/*call В начале указываем контекст что будет this , а после с второго аргумента передаются параметры функции (значения)
+apply Первый параметр контекст , второй массив
+*/
+
+	// Фишка apply
+	var arrayNumbers=[1,33,4,6]
+	console.log(Math.max.apply(Math,arrayNumbers))
+
+	/* Фиксированно задать контекст функции метод Bind
+	 Всегда возвращает функцию, и применяет на вход параметр контекст к которому я хочу привязать функцию
+	 ВСЕГДА ВЫЗЫВАЕТСЯ с одним и тем же контекстом*/
+	var asd=function(){
+		console.log(this.name)
+	}
+	var boundAsd=asd.bind({name:"frontend"})
+	boundAsd()
+</script>
+</body>
+</html>
